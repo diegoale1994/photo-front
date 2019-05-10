@@ -10,7 +10,7 @@ import { tap } from 'rxjs/operators';
 export class ChacheInterceptor implements HttpInterceptor {
     constant: Server = new Server();
     private host: string = this.constant.host;
-    constructor(private accountService: AccountService, private cacheService: CacheService) {}
+    constructor(private cacheService: CacheService) {}
     intercept(req: HttpRequest<any>, next: HttpHandler) {
         if (req.method !== 'GET') {
             this.cacheService.clearCache();

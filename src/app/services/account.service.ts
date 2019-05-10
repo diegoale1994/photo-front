@@ -51,7 +51,7 @@ export class AccountService {
     return this.token;
   }
 
-  idLoggedIn(): boolean {
+  isLoggedIn(): boolean {
     this.loadToken();
     if (this.token != null && this.token !== '') {
       if (this.jwtHelper.decodeToken(this.token).sub != null || '') {
