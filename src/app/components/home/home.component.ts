@@ -24,12 +24,19 @@ export class HomeComponent implements OnInit, OnDestroy {
               private loadingService: LoadingService, private postService: PostService) { }
 
   ngOnInit() {
-
+    this.loadingService.loading.next(true);
+    this.getUserInfo(this.accountService.logginUsername);
+    this.getPosts();
+    this.host = this.postService.host;
+    this.userHost = this.postService.userHost;
+    this.postHost = this.postService.postHost;
+    this.loadingService.loading.next(false);
   }
 
   getUserInfo(username: string): void {
     this.subscriptions.push(
       this.accountService.getUserInformation(username).subscribe((response: User) => {
+        console.log(response);
         this.user = response;
       }, error => {
         console.log(error);

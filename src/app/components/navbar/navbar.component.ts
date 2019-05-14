@@ -44,12 +44,20 @@ export class NavbarComponent implements OnInit, OnDestroy {
               private loadingService: LoadingService) { }
 
   ngOnInit() {
-    this.loadingService.loading.next(true);
     this.host = this.postService.host;
     this.clientHost = this.postService.clienteHost;
     this.userHost = this.postService.userHost;
     this.postHost = this.postService.postHost;
     this.showNavbar = true;
+    if (this.accountService.isLoggedIn()) {
+      this.userName = this.accountService.logginUsername;
+      this.getUserInfo(this.userName);
+      this.getLonAndLat();
+      this.loadingService.loading.next(false);
+    } else {
+      this.showNavbar = false;
+      this.loadingService.loading.next(false);
+    }
   }
 
   getUserInfo(username: string): void {
@@ -106,6 +114,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   OnNewPost(post: Post): void {
+    console.log(post);
     const element: HTMLElement = document.getElementById(
       'dismissOnSubmitPost'
     ) as HTMLElement;
@@ -114,7 +123,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.Subscriptions.push(
       this.postService.save(post).subscribe((response: Post) => {
         console.log(response);
-        let postId: number = response.id;
+        const postId: number = response.id;
         this.savePicture(this.postPicture);
         this.loadingService.loading.next(false);
         this.newPostUrl = `${this.clientHost}/post/${postId}`;

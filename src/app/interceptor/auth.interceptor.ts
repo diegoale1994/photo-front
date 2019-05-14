@@ -10,7 +10,7 @@ export class AuthInterceptor implements HttpInterceptor {
     constructor(private accountService: AccountService) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
+        console.log("hola");
         if (req.url.includes(`${this.accountService.host}/user/resetPassword`)) {
             return next.handle(req);
         }
@@ -28,6 +28,7 @@ export class AuthInterceptor implements HttpInterceptor {
         }
         this.accountService.loadToken();
         const token = this.accountService.getToken();
+        console.log(token);
         const request = req.clone({setHeaders: {Authorization: token}});
         return next.handle(request);
     }

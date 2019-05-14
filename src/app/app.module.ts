@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { FormsModule } from '@angular/forms';
 
@@ -15,6 +15,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 
 import { NgxLoadingModule } from 'ngx-loading';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { ChacheInterceptor } from './interceptor/cache.interceptor';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { NgxLoadingModule } from 'ngx-loading';
     FormsModule,
     NgxLoadingModule.forRoot({})
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ChacheInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
