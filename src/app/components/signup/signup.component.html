@@ -1,3 +1,23 @@
-<p>
-  signup works!
-</p>
+<!-- form -->
+<div class="container justify-content-center align-items-center">
+    <div class="form-wrapper text-center">
+        <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm.value)" class="form-signin">
+            <h2 class="h3 mb-3 font-weight-normal">Registro</h2>
+            <div class="form-group">
+                <input type="text" class="form-control" name="name" placeholder="Nombres" required ngModel #nameInput="ngModel">
+                <span class="help-block" *ngIf="nameInput.invalid && nameInput.touched">Ingresa tu nombre</span>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="username" placeholder="Usuario" required ngModel #usernameInput="ngModel">
+                <span class="help-block" *ngIf="usernameInput.invalid && usernameInput.touched">Ingresa tu usuario</span>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="email" placeholder="Email" email required ngModel #emailInput="ngModel">
+                <span class="help-block" *ngIf="emailInput.invalid && emailInput.touched">Ingresa una direccion de email valida</span>
+            </div>
+            <button [disabled]="registerForm.invalid" class="btn btn-lg btn-primary btn-block" type="submit">Registrarse</button>
+        </form>
+        <small><a routerLink="/login">tienes una cuenta? Ingresa</a></small>
+    </div>
+
+</div>
