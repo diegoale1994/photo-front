@@ -7,5 +7,6 @@ export class Post {
     username: string;
     location: string;
     likes: number;
-    commentList: Comment[];
+    userImageId: number;
+    commentsList: Comment[];
 }

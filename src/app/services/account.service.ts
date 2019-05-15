@@ -5,6 +5,7 @@ import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/htt
 import { Observable } from 'rxjs';
 import { User } from '../model/user';
 import { Post } from '../model/post';
+import { PasswordChange } from '../model/password-change';
 
 @Injectable({
   providedIn: 'root'
@@ -86,7 +87,7 @@ export class AccountService {
     return this.http.put<User>(`${this.host}/user/update`, updateUser);
   }
 
-  changePassowrd(changePassword: string) {
+  changePassowrd(changePassword: PasswordChange) {
     return this.http.post(`${this.host}/user/changePassword`, changePassword, {responseType: 'text'});
   }
 

@@ -40,13 +40,17 @@ export class PostDetailComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.loadingService.loading.next(true);
+    this.comment.content = '';
+    this.resolvePost();
   }
 
   resolvePost(): void {
-    let resolvePost: Post = this.route.snapshot.data['resolvedPost'];
+    const resolvePost: Post = this.route.snapshot.data['resolvedPost'];
     if (resolvePost != null) {
       console.log(resolvePost);
       this.post = resolvePost;
+      console.log(this.post);
       this.userHost = this.postService.userHost;
       this.postHost = this.postService.postHost;
       this.host = this.postService.host;
@@ -75,7 +79,6 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     if (result) {
       this.like = 'Unlike';
       this.color = '#18BC9C';
-      console.log('testing');
     } else {
       this.like = 'Like';
       this.color = '#000000';
@@ -130,7 +133,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     newComment.postedDate = new Date();
     newComment.username = comment.value.username;
     console.log(newComment);
-    post.commentList.push(newComment);
+    post.commentsList.push(newComment);
     this.Subscriptions.push(
       this.postService.saveComment(newComment).subscribe(
         response => {
@@ -156,7 +159,6 @@ export class PostDetailComponent implements OnInit, OnDestroy {
       )
     );
   }
-
   doUnlike(post, user) {
     this.Subscriptions.push(
       this.postService.unLike(post.id, user.username).subscribe(

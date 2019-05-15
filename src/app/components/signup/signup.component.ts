@@ -40,6 +40,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         console.log(response);
         this.loadingService.loading.next(false);
         this.alertService.showAlert('Usuario registrado con exito, revisa la bandeja de entrada de tu corre', AlertType.SUCCESS);
+        this.router.navigateByUrl('/login');
       }, (error: HttpErrorResponse) => {
           console.log(error);
           this.loadingService.loading.next(false);

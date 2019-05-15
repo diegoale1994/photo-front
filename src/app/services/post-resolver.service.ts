@@ -10,8 +10,8 @@ import { PostService } from './post.service';
 export class PostResolverService implements Resolve<Post> {
   constructor(private postService: PostService) { }
 
-  resolve(route: import('@angular/router').ActivatedRouteSnapshot): Observable<Post> {
-    const postId: number = route.params['postId'];
+  resolve(route: import ('@angular/router').ActivatedRouteSnapshot): Observable<Post> {
+    const postId: number = route.params.postId;
     return this.postService.getPostById(postId);
   }
 }

@@ -7,6 +7,7 @@ export class User {
     email: Date;
     password: string;
     bio: string;
+    createdDate: string;
     post: Post[];
     likedPost: Post[];
 }

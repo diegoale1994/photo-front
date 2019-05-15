@@ -52,7 +52,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     if (this.accountService.isLoggedIn()) {
       this.userName = this.accountService.logginUsername;
       this.getUserInfo(this.userName);
-      this.getLonAndLat();
+      //this.getLonAndLat();
       this.loadingService.loading.next(false);
     } else {
       this.showNavbar = false;
